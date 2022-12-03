@@ -12,8 +12,12 @@
 </head>
 
 <body>
+    <!-- 네비게이션바 -->
+    {% include 'navbar.html' %}
     <!--템플릿 content-->
     {% block content %}
     {% endblock content %}
+
+    <script src="{% static 'bootstrap.min.js' %}"></script>
 </body>
 </html>
