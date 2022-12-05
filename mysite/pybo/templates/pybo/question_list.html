@@ -7,9 +7,10 @@
 <div class="container my-3">
     <table class="table">
         <thead>
-            <tr class="table-dark">
+            <tr class="text-center table-dark">
                 <th>번호</th>
-                <th>제목</th>
+                <th style="width=50%">제목</th>
+                <th>글쓴이</th>
                 <th>작성일시</th>
             </tr>
         </thead>
@@ -20,7 +21,7 @@
             console.log("question.start type : ", typeof({{question_list.start_index}}))
         </script>
         {% for question in question_list %}
-        <tr>
+        <tr class="text-center">
             <td>
                 <!--{{forloop.counter}}-->
                 {{question_list.paginator.count|sub:question_list.start_index|sub:forloop.counter0|add:1}}
@@ -28,19 +29,22 @@
                     console.log({{question_list.paginator.count}})                    
                 </script> {% endcomment %}
             </td>
-            <td>
+            <td class="text-start">
             <!--<li><a href="/pybo/{{question.id}}">{{question.subject}}</a></li>-->
             <a href="{% url 'pybo:detail' question_id=question.id %}">{{question.subject}}</a>
             {% if question.answer_set.count > 0 %}
                 <span class="text-danger small mx-2">{{question.answer_set.count}}</span>
             {% endif %}
             </td>
+            <td>
+                {{question.author.username}}
+            </td>
             <td>{{question.create_date}}</td>
         </tr>
         {% endfor %}
 {% else %}
         <tr>
-            <td colspan="3">질문이 없습니다.</td>
+            <td colspan="4">질문이 없습니다.</td>
         </tr>
 {% endif %}
         </tbody>
