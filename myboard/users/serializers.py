@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 from django.contrib.auth.password_validation import validate_password   # 패스워드 검증 도구
 
 from rest_framework import serializers
@@ -43,3 +44,18 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.save()
         token = Token.objects.create(user=user)
         return user
+
+# 토큰을 응답하기만 하면 되기 때문에 ModelSerilzer를 사용할 필요가 없음
+class LoginSerializer(serializers.Serializer):
+    username = serializers.CharField(required=True)
+    password = serializers.CharField(required=True, write_only=True)
+    # write_only는 클라이언트->서버 가능 / 서버->클라이언트 불가능
+
+    def validate(self, data):
+        user = authenticate(**data)
+        if user:
+            token = Token.objects.get(user=user)
+            return token
+        raise serializers.ValidationError(
+            {"error":"Unable to log in with provided credentials."}
+        )
