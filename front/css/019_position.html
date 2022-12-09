@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <title>위치 지정하기</title>
+        <style type="text/css">
+            div {
+                width:100pt;
+                height:100pt;
+                background-color:gray;
+            }
+            .position1 {
+                z-index:1;
+                position:static;
+                top:100pt;
+                left:100pt;
+                background-color:gray;
+            }
+            .position2 {
+                z-index:4;
+                position:relative;
+                top:100pt;
+                left:100pt;
+                background-color:gray
+            }
+            .position3 {
+                z-index:2;
+                position:absolute;
+                top:100pt;
+                left:100pt;
+            }
+            .position4 {
+                z-index:3;
+                position:absolute;
+                top:150pt;
+                left:150pt;
+                background-color:red;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="position1">위치 지정하기1</div>
+        <div class="position2">위치 지정하기2</div>
+        <div class="position3">위치 지정하기3</div>
+        <div class="position4">위치 지정하기4</div>
+    </body>
+</html>
