@@ -41,7 +41,9 @@ def answer_modify(request, answer_id):
             answer = form.save(commit=False)
             answer.modify_date = timezone.now()
             answer.save()
-            return redirect('pybo:detail', question_id=answer.id)
+            # return redirect('pybo:detail', question_id=answer.id)
+            return redirect('{}#answer_{}'.format(
+                resolve_url('pybo:detail', question_id=answer.question.id), answer.id))
     else:
         form = AnswerForm(instance=answer)
     context = {'answer':answer, 'form':form}
@@ -64,4 +66,6 @@ def answer_vote(request, answer_id):
         messages.error(request, '본인이 작성한 글은 추천할 수 없어요')
     else:
         answer.voter.add(request.user)
-    return redirect('pybo:detail', question_id=answer.question.id)
+    # return redirect('pybo:detail', question_id=answer.question.id)
+    return redirect('{}#answer_{}'.format(
+                resolve_url('pybo:detail', question_id=answer.question.id), answer.id))
